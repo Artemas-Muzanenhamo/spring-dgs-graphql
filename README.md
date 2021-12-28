@@ -14,3 +14,12 @@
     }
 }
 ```
+
+* Below is an example of how to execute a query with a filter for all movie titles containing the letter in the filter: 
+```graphql
+{
+  shows(titleFilter: "O") {
+    title
+  }
+}
+```
