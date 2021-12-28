@@ -1,26 +1,22 @@
 package com.artemas.dgs.data
 
+import com.artemas.dgs.domain.Show
+import com.artemas.dgs.service.ShowsService
 import com.netflix.graphql.dgs.DgsComponent
 import com.netflix.graphql.dgs.DgsQuery
 import com.netflix.graphql.dgs.InputArgument
 
 @DgsComponent
-class ShowsDataFetcher {
-    private val shows = listOf(
-        Show("Stranger Things", 2016),
-        Show("Ozark", 2017),
-        Show("The Crown", 2016),
-        Show("Dead to Me", 2019),
-        Show("Orange is the New Black", 2013))
+class ShowsDataFetcher(
+    val showsService: ShowsService
+) {
 
     @DgsQuery
     fun shows(@InputArgument titleFilter : String?): List<Show> {
         return if(titleFilter != null) {
-            shows.filter { it.title.contains(titleFilter) }
+            showsService.shows().filter { it.title.contains(titleFilter) }
         } else {
-            shows
+            showsService.shows()
         }
     }
-
-    data class Show(val title: String, val releaseYear: Int)
 }

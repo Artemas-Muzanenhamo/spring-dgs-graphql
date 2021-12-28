@@ -1,5 +1,6 @@
 package com.artemas.dgs.data
 
+import com.artemas.dgs.service.ShowsService
 import com.netflix.graphql.dgs.DgsQueryExecutor
 import com.netflix.graphql.dgs.autoconfig.DgsAutoConfiguration
 import org.assertj.core.api.Assertions.assertThat
@@ -7,7 +8,7 @@ import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
-@SpringBootTest(classes = [DgsAutoConfiguration::class, ShowsDataFetcher::class])
+@SpringBootTest(classes = [DgsAutoConfiguration::class, ShowsDataFetcher::class, ShowsService::class])
 class ShowsDataFetcherTest {
 
     @Autowired
