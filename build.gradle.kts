@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.spring") version "1.6.10"
+    id("com.netflix.dgs.codegen") version "5.1.14"
 }
 
 group = "com.artemas"
@@ -26,6 +27,8 @@ dependencies {
     // dgs
     implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
     implementation("com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter")
+    implementation("com.netflix.graphql.dgs:graphql-dgs-extended-scalars")
+    implementation("com.netflix.graphql.dgs:graphql-dgs-client")
 
     // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -41,4 +44,8 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.withType<com.netflix.graphql.dgs.codegen.gradle.GenerateJavaTask> {
+    generateClient = true
 }
