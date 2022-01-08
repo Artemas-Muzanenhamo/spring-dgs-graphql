@@ -16,12 +16,16 @@ class ArtemasTest(
     
     @Test
     fun `call graphQL`() {
+        val query = """
+            {shows{title}}
+        """.trimIndent()
+        
         webTestClient.post()
             .uri("/graphql")
             .contentType(APPLICATION_JSON)
             .bodyValue("""
                 {
-                  "query": "{shows{title}}"
+                  "query": "$query"
                 }
             """.trimIndent())
             .exchange()
@@ -31,7 +35,27 @@ class ArtemasTest(
             .contentType(APPLICATION_JSON)
             .expectBody()
             .json("""
-                {"data":{"shows":[{"title":"Stranger Things"},{"title":"Ozark"},{"title":"The Crown"},{"title":"Dead to Me"},{"title":"Orange is the New Black"}]}}
+                {
+                    "data":{
+                        "shows":[
+                            {
+                                "title":"Stranger Things"
+                            },
+                            {
+                                "title":"Ozark"
+                            },
+                            {
+                                "title":"The Crown"
+                            },
+                            {
+                                "title":"Dead to Me"
+                            },
+                            {
+                                "title":"Orange is the New Black"
+                            }
+                        ]
+                    }
+                }
             """.trimIndent())
     }
 }
