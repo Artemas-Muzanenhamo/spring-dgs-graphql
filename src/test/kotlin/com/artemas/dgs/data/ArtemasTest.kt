@@ -17,16 +17,18 @@ class ArtemasTest(
     @Test
     fun `call graphQL`() {
         val query = """
-            {shows{title}}
+            {
+                shows {
+                    title
+                }
+            }
         """.trimIndent()
         
         webTestClient.post()
             .uri("/graphql")
-            .contentType(APPLICATION_JSON)
+            .contentType(MediaType.parseMediaType("application/graphql"))
             .bodyValue("""
-                {
-                  "query": "$query"
-                }
+                $query
             """.trimIndent())
             .exchange()
             .expectStatus()
